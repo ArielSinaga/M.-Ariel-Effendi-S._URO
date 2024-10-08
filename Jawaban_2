@@ -1,0 +1,63 @@
+class Robot:
+    def __init__(self, name, health, power):
+        self.name = name
+        self.health = health
+        self.power = power
+
+    def attack(self, enemy):
+        self.health -= enemy.power
+    
+    def alive(self):
+        self.health > 0
+
+    def dead(self):
+        self.health = 0
+        if self.health < 0:
+            self.health = 0
+class Battle:
+    def __init__(self, robot_1, robot_2, damage):
+        self.robot_1 = robot_1
+        self.robot_2 = robot_2
+        self.damage = damage
+    def start_fight(self, robot_1, robot_2):
+        print("Battle Start!")
+        while robot_1.alive() and robot_2.alive():
+            robot_2.health -= robot_1.power
+            self.damage = robot_1.power
+            print(f'{robot_1.name} attacks {robot_2.name} for {self.damage} damage!')
+            
+            if robot_2.dead():
+                print(f'{robot_2.name} is defeated')
+                print(f'{robot_1.name} wins!')
+                break
+            
+            robot_1.health -= robot_2.power
+            self.damage = robot_2.power
+            print(f'{robot_2.name} attacks {robot_1.name} for {self.damage} damage!')
+
+            if robot_1.dead():
+                print(f'{robot_1.name} is defeated')
+                print(f'{robot_2.name} wins!')
+                break
+class Game:
+    def __init__(self):
+        self.robot = []
+    def add_robot(self):
+        self.z = int(input("Mau berapa robot nich: "))
+        while self.z:
+            self.robot = input("Masukkan nama robot, health, dan power: ")
+            self.z -= 1
+            if self.z == 0:
+                break
+    def start_game(self):
+        print("Choose robots for the battle: ")
+        print(self.robot)
+        self.robot_x = int(input("Select the first robot: "))
+        self.robot_y = int(input("Select the second robot: "))
+        self.robot_1 = self.robot[self.robot_x - 1]
+        self.robot_2 = self.robot[self.robot_y - 1]
+
+        Battle.start_fight(self.robot_1, self.robot_2)
+        
+
+        
